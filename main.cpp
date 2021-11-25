@@ -2,10 +2,11 @@
 and may not be redistributed without written permission.*/
 
 //Using SDL, SDL_image, standard IO, and strings
-#include "SDL2/SDL.h"
-#include "SDL2/SDL_image.h" //For loading images
-#include "SDL2/SDL_ttf.h" //For loading/displaying text 
-#include "Snake/SnakePiece.h"
+#include <SDL2/SDL.h>
+#include <SDL2/SDL_image.h> //For loading images
+#include <SDL2/SDL_ttf.h> //For loading/displaying text 
+#include "SnakePiece.cpp"
+#include "Snake.cpp"
 #include <stdio.h>
 #include <string>
 #include <vector>
@@ -65,176 +66,6 @@ SDL_Color Blue = { 0, 0, 255 };
 The play field will be a grid of x by y blocks where a Snake piece is sx by yx pixels
 The middle of each block will then just be calculated as its (xidx * x + x/2, yidx * y + y/2)
 */
-
-class Snake
-{
-private:
-
-    std::vector<SnakePiece> bodyParts;
-
-
-public:
-
-    Snake() {
-        addBodyPart();
-    };
-
-    /**
-     * @brief Adds a new bodypart to the end of the Snake
-     *
-     */
-    void addBodyPart() {
-        int x, y;
-        Direction facing;
-        if (bodyParts.empty()) {
-            x = CELL_HEIGHT / 2;
-            y = CELL_WIDTH / 2;
-            facing = right;
-        }
-        else {
-            int* pos = bodyParts.back().getPos();
-            x = *pos;
-            y = *(pos + 1);
-            facing = bodyParts.back().getFacing();
-        }
-
-        SnakePiece newPiece;
-        switch (facing)
-        {
-        case left:
-            newPiece.setPos(x + CELL_WIDTH, y);
-            newPiece.setFacing(left);
-            break;
-        case right:
-            newPiece.setPos(x - CELL_WIDTH, y);
-            newPiece.setFacing(right);
-            break;
-        case up:
-            newPiece.setPos(x, y + CELL_HEIGHT);
-            newPiece.setFacing(up);
-            break;
-        case down:
-            newPiece.setPos(x, y - CELL_HEIGHT);
-            newPiece.setFacing(down);
-            break;
-        }
-
-        bodyParts.push_back(newPiece);
-
-    }
-
-    /**
-     * @brief Calls draw function on each member of the Snake
-     *
-     * @param surface Is the surface to be drawn on
-     */
-    void draw(SDL_Surface* surface) {
-        for (int i = 0; i < bodyParts.size(); i++)
-        {
-            bodyParts.at(i).draw(surface);
-        }
-
-    };
-
-    /**
-     * @brief Move the snake forward
-     *
-     * @returns true if the snake hit a wall or itself
-     * @returns false if the snake didnt hit anything
-     */
-    bool move() {
-        //Keep track of head being bonked or not
-        bool headBonked = false;
-
-        // (I admit this looks a little stupid but it lets me do bonk-checking in the for loop)
-
-        // First do for head
-
-        int* pos = bodyParts.at(0).getPos();
-        int headX = *pos;
-        int headY = *(pos + 1);
-        Direction headFacing = bodyParts.at(0).getFacing();
-
-        int newHeadX, newHeadY;
-
-
-        switch (headFacing)
-        {
-        case left:
-            newHeadX = headX - CELL_WIDTH;
-            newHeadY = headY;
-            break;
-        case right:
-            newHeadX = headX + CELL_WIDTH;
-            newHeadY = headY;
-            break;
-        case up:
-            newHeadX = headX;
-            newHeadY = headY - CELL_HEIGHT;
-            break;
-        case down:
-            newHeadX = headX;
-            newHeadY = headY + CELL_HEIGHT;
-            break;
-        }
-
-        if (newHeadX < 0 || newHeadY < 0 || newHeadX > SCREEN_WIDTH || newHeadY > SCREEN_HEIGHT) {
-            headBonked = true;
-        }
-
-        bodyParts.at(0).setPos(newHeadX, newHeadY);
-
-        if (!bodyParts.empty()) {
-            // variables used to store the previously moved snake part's position and facing direction
-            int prevX, prevY;
-            Direction prevFacing;
-
-            //Since the head was previously moved we store the values in the variables
-            prevX = headX;
-            prevY = headY;
-            prevFacing = headFacing;
-
-            // Moving up every single member except head. Also check if head will bonk into it
-            for (int i = 1; i < bodyParts.size(); i++)
-            {
-                //Temp variables
-                int* pos = bodyParts.at(i).getPos();
-                int x = *pos;
-                int y = *(pos + 1);
-
-                Direction facing = bodyParts.at(i).getFacing();
-
-                //Move
-                bodyParts.at(i).setFacing(prevFacing);
-                bodyParts.at(i).setPos(prevX, prevY);
-
-                // Bonk-checking
-                if (!headBonked && prevX == newHeadX && prevY == newHeadY) {
-                    headBonked = true;
-                }
-
-                //Store for next iteration
-                prevFacing = facing;
-                prevX = x;
-                prevY = y;
-
-
-            }
-        }
-
-
-        return headBonked;
-    };
-
-    void setHeadDirection(Direction newDirection) {
-        bodyParts.at(0).setFacing(newDirection);
-    }
-
-    Direction getHeadDirection() {
-        return bodyParts.at(0).getFacing();
-    }
-};
-
 
 bool init()
 {
@@ -358,7 +189,7 @@ int main(int argc, char* args[])
             //Event handler
             SDL_Event e;
 
-            Snake snake;
+            Snake snake(SCREEN_WIDTH, SCREEN_HEIGHT, CELL_WIDTH, CELL_HEIGHT);
             snake.addBodyPart();
             snake.addBodyPart();
             snake.addBodyPart();

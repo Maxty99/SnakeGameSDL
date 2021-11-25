@@ -1,5 +1,5 @@
 #include <SDL2/SDL.h>
-#include <Snake/SnakePiece.h>
+#include "Snake/SnakePiece.h"
 
 /**
 * @brief Set the position of the Snake Piece object

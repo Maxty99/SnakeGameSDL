@@ -1,8 +1,12 @@
-#pragma once
 
+#ifndef DIRECTION_ENUM
+#define DIRECTION_ENUM  
 //Enum for determining where Snake Piece is facing
 enum Direction { left, right, up, down };
+#endif 
 
+#ifndef SNAKEPIECE_H
+#define SNAKEPIECE_H
 class SnakePiece {
 private:
     Direction facing = right;
@@ -49,3 +53,4 @@ public:
      */
     void draw(SDL_Surface* surface);
 };
+#endif 
