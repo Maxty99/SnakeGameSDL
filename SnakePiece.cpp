@@ -8,9 +8,15 @@
 * @param y
 */
 
+SnakePiece::SnakePiece(int width, int height) {
+    snakeblockWidth = width;
+    snakeblockHeight = height;
+}
+
 void SnakePiece::setPos(int x, int y) {
     pos[0] = x;
     pos[1] = y;
+
 }
 
 /**
@@ -50,10 +56,10 @@ Direction SnakePiece::getFacing() {
 */
 
 void SnakePiece::draw(SDL_Surface* surface) {
-    SDL_Rect r = { pos[0] - (28 / 2),
-                   pos[1] - (28 / 2),
-                   28,
-                   28 };
+    SDL_Rect r = { pos[0] - (snakeblockWidth / 2),
+                   pos[1] - (snakeblockHeight / 2),
+                   snakeblockWidth,
+                   snakeblockHeight };
 
     SDL_FillRect(surface, &r, 0xFFFFFF);
 }

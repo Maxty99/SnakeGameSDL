@@ -3,10 +3,14 @@
 
 Snake::Snake(const int& screen_width, const int& screen_height, const int& cell_width, const int& cell_height) {
     addBodyPart();
-    SCREEN_WIDTH = screen_width;
-    SCREEN_HEIGHT = screen_height;
-    CELL_WIDTH = cell_width;
-    CELL_HEIGHT = cell_height;
+    // SCREEN_WIDTH = screen_width;
+    // SCREEN_HEIGHT = screen_height;
+    // CELL_WIDTH = cell_width;
+    // CELL_HEIGHT = cell_height;
+    SCREEN_WIDTH = 640;
+    SCREEN_HEIGHT = 480;
+    CELL_WIDTH = 30;
+    CELL_HEIGHT = 30;
 }
 
 /**
@@ -29,7 +33,7 @@ void Snake::addBodyPart() {
         facing = bodyParts.back().getFacing();
     }
 
-    SnakePiece newPiece;
+    SnakePiece newPiece(28, 28);
     switch (facing)
     {
     case left:
@@ -177,4 +181,16 @@ void Snake::setHeadDirection(Direction newDirection) {
 
 Direction Snake::getHeadDirection() {
     return bodyParts.at(0).getFacing();
+}
+
+int Snake::getHeadX() {
+    int* pos = bodyParts.at(0).getPos();
+    return *pos;
+
+}
+
+int Snake::getHeadY() {
+    int* pos = bodyParts.at(0).getPos();
+    return *(pos + 1);
+
 }

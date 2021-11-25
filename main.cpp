@@ -20,8 +20,8 @@ const int SNAKE_BLOCK_WIDTH = 28;
 const int SNAKE_BLOCK_HEIGHT = 28;
 
 //Screen dimension constants
-const int SCREEN_WIDTH = 1290;
-const int SCREEN_HEIGHT = 960;
+const int SCREEN_WIDTH = 640;
+const int SCREEN_HEIGHT = 480;
 
 
 
@@ -183,6 +183,7 @@ int main(int argc, char* args[])
         }
         else
         {
+
             //Main loop flag
             bool quit = false;
 
@@ -257,7 +258,8 @@ int main(int argc, char* args[])
                 if (deltaTime > .1) {
                     directionSet = false;
                     if (snake.move()) {
-                        quit = true;;
+                        printf("%d, %d", snake.getHeadX(), snake.getHeadY());
+                        // quit = true;
                     }
                 }
                 //Render Snake

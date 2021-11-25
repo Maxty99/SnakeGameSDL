@@ -1,4 +1,5 @@
 #include <vector>
+#include "SnakePiece.h"
 
 #ifndef DIRECTION_ENUM
 #define DIRECTION_ENUM  
@@ -18,6 +19,7 @@ private:
     int SCREEN_HEIGHT;
     int CELL_WIDTH;
     int CELL_HEIGHT;
+
 public:
 
     Snake(const int& screen_width, const int& screen_height, const int& cell_width, const int& cell_height);
@@ -33,7 +35,7 @@ public:
      *
      * @param surface Is the surface to be drawn on
      */
-    void draw(SDL_Surface* surface);;
+    void draw(SDL_Surface* surface);
 
     /**
      * @brief Move the snake forward
@@ -41,7 +43,7 @@ public:
      * @returns true if the snake hit a wall or itself
      * @returns false if the snake didnt hit anything
      */
-    bool move();;
+    bool move();
 
     /**
      * @brief Set the Head Direction
@@ -56,5 +58,8 @@ public:
      * @return Direction
      */
     Direction getHeadDirection();
+
+    int getHeadX();
+    int getHeadY();
 };
 #endif

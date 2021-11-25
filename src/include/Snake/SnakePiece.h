@@ -12,10 +12,12 @@ private:
     Direction facing = right;
     // [x,y] of the middle of the square 
     int pos[2];
-
+    int snakeblockWidth;
+    int snakeblockHeight;
 
 public:
 
+    SnakePiece(int width, int height);
 
     /**
      * @brief Set the position of the Snake Piece object
