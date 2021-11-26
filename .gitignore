@@ -37,3 +37,4 @@
 # SDL related headers/libs
 src/lib/
 src/include/SDL2
+src/include/raylib
