@@ -4,7 +4,7 @@ and may not be redistributed without written permission.*/
 //Using SDL, SDL_image, standard IO, and strings
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_image.h> //For loading images
-#include <SDL2/SDL_ttf.h> //For loading/displaying text 
+#include <SDL2/SDL_ttf.h>   //For loading/displaying text
 #include "SnakePiece.cpp"
 #include "Snake.cpp"
 #include <stdio.h>
@@ -15,15 +15,13 @@ and may not be redistributed without written permission.*/
 const int CELL_WIDTH = 30;
 const int CELL_HEIGHT = 30;
 
-// Snake block w and h 
+// Snake block w and h
 const int SNAKE_BLOCK_WIDTH = 28;
 const int SNAKE_BLOCK_HEIGHT = 28;
 
 //Screen dimension constants
 const int SCREEN_WIDTH = 640;
 const int SCREEN_HEIGHT = 480;
-
-
 
 //Starts up SDL and creates window
 bool init();
@@ -35,24 +33,22 @@ bool loadMedia();
 void close();
 
 //Loads individual image
-SDL_Surface* loadSurface(std::string path);
+SDL_Surface *loadSurface(std::string path);
 
 //The window we'll be rendering to
-SDL_Window* gWindow = NULL;
+SDL_Window *gWindow = NULL;
 
 //The surface contained by the window
-SDL_Surface* gScreenSurface = NULL;
+SDL_Surface *gScreenSurface = NULL;
 
 //Font used to display text
-TTF_Font* font = NULL;
+TTF_Font *font = NULL;
 
 //Defining some colors
-SDL_Color White = { 255, 255, 255 };
-SDL_Color Red = { 255, 0, 0 };
-SDL_Color Green = { 0, 255, 0 };
-SDL_Color Blue = { 0, 0, 255 };
-
-
+SDL_Color White = {255, 255, 255};
+SDL_Color Red = {255, 0, 0};
+SDL_Color Green = {0, 255, 0};
+SDL_Color Blue = {0, 0, 255};
 
 /*
 +----------+-----------+-----------+
@@ -81,7 +77,7 @@ bool init()
     else
     {
         //Create window
-        gWindow = SDL_CreateWindow("SDL Tutorial", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, SCREEN_WIDTH, SCREEN_HEIGHT, SDL_WINDOW_SHOWN);
+        gWindow = SDL_CreateWindow("Snake", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, SCREEN_WIDTH, SCREEN_HEIGHT, SDL_WINDOW_SHOWN);
         if (gWindow == NULL)
         {
             printf("Window could not be created! SDL Error: %s\n", SDL_GetError());
@@ -96,7 +92,8 @@ bool init()
                 printf("SDL_image could not initialize! SDL_image Error: %s\n", IMG_GetError());
                 success = false;
             }
-            if (TTF_Init() == -1) {
+            if (TTF_Init() == -1)
+            {
                 printf("TTF_Init could not initialize! TTF_Init Error: %s\n", TTF_GetError());
                 success = false;
             }
@@ -140,13 +137,13 @@ void close()
     SDL_Quit();
 }
 
-SDL_Surface* loadSurface(std::string path)
+SDL_Surface *loadSurface(std::string path)
 {
     //The final optimized image
-    SDL_Surface* optimizedSurface = NULL;
+    SDL_Surface *optimizedSurface = NULL;
 
     //Load image at specified path
-    SDL_Surface* loadedSurface = IMG_Load(path.c_str());
+    SDL_Surface *loadedSurface = IMG_Load(path.c_str());
     if (loadedSurface == NULL)
     {
         printf("Unable to load image %s! SDL_image Error: %s\n", path.c_str(), IMG_GetError());
@@ -167,7 +164,7 @@ SDL_Surface* loadSurface(std::string path)
     return optimizedSurface;
 }
 
-int main(int argc, char* args[])
+int main(int argc, char *args[])
 {
     //Start up SDL and create window
     if (!init())
@@ -207,7 +204,8 @@ int main(int argc, char* args[])
                 // (converted to seconds)
                 float deltaTime = (SDL_GetTicks() - mTicksCount) / 1000.0f;
                 // Update tick counts for next frame if enough time has passed
-                if (deltaTime > .1) {
+                if (deltaTime > .1)
+                {
                     mTicksCount = SDL_GetTicks();
                 }
 
@@ -224,29 +222,38 @@ int main(int argc, char* args[])
                     }
 
                     // handle keydown event
-                    if (e.type == SDL_KEYDOWN) {
+                    if (e.type == SDL_KEYDOWN)
+                    {
                         // look for the key pushed down.
 
-                        if (SDLK_DOWN == e.key.keysym.sym) {
-                            if (snake.getHeadDirection() != up && !directionSet) {
+                        if (SDLK_DOWN == e.key.keysym.sym)
+                        {
+                            if (snake.getHeadDirection() != up && !directionSet)
+                            {
                                 directionSet = true;
                                 snake.setHeadDirection(down);
                             };
                         }
-                        if (SDLK_UP == e.key.keysym.sym) {
-                            if (snake.getHeadDirection() != down && !directionSet) {
+                        if (SDLK_UP == e.key.keysym.sym)
+                        {
+                            if (snake.getHeadDirection() != down && !directionSet)
+                            {
                                 directionSet = true;
                                 snake.setHeadDirection(up);
                             };
                         }
-                        if (SDLK_LEFT == e.key.keysym.sym) {
-                            if (snake.getHeadDirection() != right && !directionSet) {
+                        if (SDLK_LEFT == e.key.keysym.sym)
+                        {
+                            if (snake.getHeadDirection() != right && !directionSet)
+                            {
                                 directionSet = true;
                                 snake.setHeadDirection(left);
                             };
                         }
-                        if (SDLK_RIGHT == e.key.keysym.sym) {
-                            if (snake.getHeadDirection() != left && !directionSet) {
+                        if (SDLK_RIGHT == e.key.keysym.sym)
+                        {
+                            if (snake.getHeadDirection() != left && !directionSet)
+                            {
                                 directionSet = true;
                                 snake.setHeadDirection(right);
                             };
@@ -255,17 +262,17 @@ int main(int argc, char* args[])
                 }
 
                 //Move snake
-                if (deltaTime > .1) {
+                if (deltaTime > .1)
+                {
                     directionSet = false;
-                    if (snake.move()) {
+                    if (snake.move())
+                    {
                         // printf("%d, %d", snake.getHeadX(), snake.getHeadY());
                         quit = true;
                     }
                 }
                 //Render Snake
                 snake.draw(gScreenSurface);
-
-
 
                 // SDL_BlitSurface(gPNGSurface, NULL, gScreenSurface, &r);
 
