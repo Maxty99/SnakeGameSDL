@@ -1,16 +1,13 @@
 #include "Snake/Snake.h"
 #include <SDL2/SDL.h>
 
-Snake::Snake(const int& screen_width, const int& screen_height, const int& cell_width, const int& cell_height) {
+Snake::Snake(const int &screen_width, const int &screen_height, const int &cell_width, const int &cell_height)
+{
     // addBodyPart();
-    // SCREEN_WIDTH = screen_width;
-    // SCREEN_HEIGHT = screen_height;
-    // CELL_WIDTH = cell_width;
-    // CELL_HEIGHT = cell_height;
-    SCREEN_WIDTH = 640;
-    SCREEN_HEIGHT = 480;
-    CELL_WIDTH = 30;
-    CELL_HEIGHT = 30;
+    SCREEN_WIDTH = screen_width;
+    SCREEN_HEIGHT = screen_height;
+    CELL_WIDTH = cell_width;
+    CELL_HEIGHT = cell_height;
 }
 
 /**
@@ -18,15 +15,15 @@ Snake::Snake(const int& screen_width, const int& screen_height, const int& cell_
 *
 */
 
-void Snake::addBodyPart() {
+void Snake::addBodyPart()
+{
     int x, y;
     Direction facing;
 
-    int* pos = bodyParts.back().getPos();
+    int *pos = bodyParts.back().getPos();
     x = *pos;
     y = *(pos + 1);
     facing = bodyParts.back().getFacing();
-
 
     SnakePiece newPiece(28, 28);
     switch (facing)
@@ -50,7 +47,6 @@ void Snake::addBodyPart() {
     }
 
     bodyParts.push_back(newPiece);
-
 }
 
 /**
@@ -59,12 +55,12 @@ void Snake::addBodyPart() {
 * @param surface Is the surface to be drawn on
 */
 
-void Snake::draw(SDL_Surface* surface) {
+void Snake::draw(SDL_Surface *surface)
+{
     for (int i = 0; i < bodyParts.size(); i++)
     {
         bodyParts.at(i).draw(surface);
     }
-
 }
 
 /**
@@ -74,7 +70,8 @@ void Snake::draw(SDL_Surface* surface) {
 * @returns false if the snake didnt hit anything
 */
 
-bool Snake::move() {
+bool Snake::move()
+{
     //Keep track of head being bonked or not
     bool headBonked = false;
 
@@ -82,13 +79,12 @@ bool Snake::move() {
 
     // First do for head
 
-    int* pos = bodyParts.at(0).getPos();
+    int *pos = bodyParts.at(0).getPos();
     int headX = *pos;
     int headY = *(pos + 1);
     Direction headFacing = bodyParts.at(0).getFacing();
 
     int newHeadX, newHeadY;
-
 
     switch (headFacing)
     {
@@ -110,13 +106,15 @@ bool Snake::move() {
         break;
     }
 
-    if (newHeadX < 0 || newHeadY < 0 || newHeadX > SCREEN_WIDTH || newHeadY > SCREEN_HEIGHT) {
+    if (newHeadX < 0 || newHeadY < 0 || newHeadX > SCREEN_WIDTH || newHeadY > SCREEN_HEIGHT)
+    {
         headBonked = true;
     }
 
     bodyParts.at(0).setPos(newHeadX, newHeadY);
 
-    if (!bodyParts.empty()) {
+    if (!bodyParts.empty())
+    {
         // variables used to store the previously moved snake part's position and facing direction
         int prevX, prevY;
         Direction prevFacing;
@@ -130,7 +128,7 @@ bool Snake::move() {
         for (int i = 1; i < bodyParts.size(); i++)
         {
             //Temp variables
-            int* pos = bodyParts.at(i).getPos();
+            int *pos = bodyParts.at(i).getPos();
             int x = *pos;
             int y = *(pos + 1);
 
@@ -141,7 +139,8 @@ bool Snake::move() {
             bodyParts.at(i).setPos(prevX, prevY);
 
             // Bonk-checking
-            if (!headBonked && prevX == newHeadX && prevY == newHeadY) {
+            if (!headBonked && prevX == newHeadX && prevY == newHeadY)
+            {
                 headBonked = true;
             }
 
@@ -149,11 +148,8 @@ bool Snake::move() {
             prevFacing = facing;
             prevX = x;
             prevY = y;
-
-
         }
     }
-
 
     return headBonked;
 }
@@ -164,7 +160,8 @@ bool Snake::move() {
 * @param newDirection
 */
 
-void Snake::setHeadDirection(Direction newDirection) {
+void Snake::setHeadDirection(Direction newDirection)
+{
     bodyParts.at(0).setFacing(newDirection);
 }
 
@@ -174,18 +171,19 @@ void Snake::setHeadDirection(Direction newDirection) {
 * @return Direction
 */
 
-Direction Snake::getHeadDirection() {
+Direction Snake::getHeadDirection()
+{
     return bodyParts.at(0).getFacing();
 }
 
-int Snake::getHeadX() {
-    int* pos = bodyParts.at(0).getPos();
+int Snake::getHeadX()
+{
+    int *pos = bodyParts.at(0).getPos();
     return *pos;
-
 }
 
-int Snake::getHeadY() {
-    int* pos = bodyParts.at(0).getPos();
+int Snake::getHeadY()
+{
+    int *pos = bodyParts.at(0).getPos();
     return *(pos + 1);
-
 }
