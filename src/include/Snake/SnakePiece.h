@@ -11,9 +11,9 @@ class SnakePiece {
 private:
     Direction facing = right;
     // [x,y] of the middle of the square 
-    int pos[2];
     int snakeblockWidth;
     int snakeblockHeight;
+    int pos[2] = { 15, 15 };
 
 public:
 

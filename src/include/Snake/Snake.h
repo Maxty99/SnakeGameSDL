@@ -14,7 +14,7 @@ class Snake
 {
 private:
 
-    std::vector<SnakePiece> bodyParts;
+    std::vector<SnakePiece> bodyParts{ SnakePiece(28, 28) };
     int SCREEN_WIDTH;
     int SCREEN_HEIGHT;
     int CELL_WIDTH;

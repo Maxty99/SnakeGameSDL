@@ -195,7 +195,7 @@ int main(int argc, char* args[])
             snake.addBodyPart();
             snake.addBodyPart();
             snake.addBodyPart();
-
+            // printf("%d, %d", snake.getHeadX(), snake.getHeadY());
             bool directionSet;
 
             Uint32 mTicksCount = 0;
@@ -258,8 +258,8 @@ int main(int argc, char* args[])
                 if (deltaTime > .1) {
                     directionSet = false;
                     if (snake.move()) {
-                        printf("%d, %d", snake.getHeadX(), snake.getHeadY());
-                        // quit = true;
+                        // printf("%d, %d", snake.getHeadX(), snake.getHeadY());
+                        quit = true;
                     }
                 }
                 //Render Snake

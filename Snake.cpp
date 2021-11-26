@@ -2,7 +2,7 @@
 #include <SDL2/SDL.h>
 
 Snake::Snake(const int& screen_width, const int& screen_height, const int& cell_width, const int& cell_height) {
-    addBodyPart();
+    // addBodyPart();
     // SCREEN_WIDTH = screen_width;
     // SCREEN_HEIGHT = screen_height;
     // CELL_WIDTH = cell_width;
@@ -21,17 +21,12 @@ Snake::Snake(const int& screen_width, const int& screen_height, const int& cell_
 void Snake::addBodyPart() {
     int x, y;
     Direction facing;
-    if (bodyParts.empty()) {
-        x = CELL_HEIGHT / 2;
-        y = CELL_WIDTH / 2;
-        facing = right;
-    }
-    else {
-        int* pos = bodyParts.back().getPos();
-        x = *pos;
-        y = *(pos + 1);
-        facing = bodyParts.back().getFacing();
-    }
+
+    int* pos = bodyParts.back().getPos();
+    x = *pos;
+    y = *(pos + 1);
+    facing = bodyParts.back().getFacing();
+
 
     SnakePiece newPiece(28, 28);
     switch (facing)
