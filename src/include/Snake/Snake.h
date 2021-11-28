@@ -1,5 +1,6 @@
 #include <vector>
-#include "SnakePiece.h"
+#include "SDL2/SDL.h"
+#include "GamePiece.h"
 
 #ifndef DIRECTION_ENUM
 #define DIRECTION_ENUM  
@@ -10,11 +11,16 @@ enum Direction { left, right, up, down };
 #ifndef SNAKE_H
 #define SNAKE_H
 
+/**
+ * @brief The main Snake game class, contains all the logic for the game
+ *
+ */
 class Snake
 {
 private:
 
-    std::vector<SnakePiece> bodyParts{ SnakePiece(28, 28) };
+    std::vector<GamePiece> bodyParts;
+    GamePiece fruit = GamePiece(28, 28);
     int SCREEN_WIDTH;
     int SCREEN_HEIGHT;
     int CELL_WIDTH;

@@ -5,19 +5,19 @@
 enum Direction { left, right, up, down };
 #endif 
 
-#ifndef SNAKEPIECE_H
-#define SNAKEPIECE_H
-class SnakePiece {
+#ifndef GAMEPIECE_H
+#define GAMEPIECE_H
+class GamePiece {
 private:
     Direction facing = right;
     // [x,y] of the middle of the square 
     int snakeblockWidth;
     int snakeblockHeight;
-    int pos[2] = { 15, 15 };
+    int pos[2] = { 0 }; // Init array to avoid undefined behavior
 
 public:
 
-    SnakePiece(int width, int height);
+    GamePiece(int width, int height);
 
     /**
      * @brief Set the position of the Snake Piece object

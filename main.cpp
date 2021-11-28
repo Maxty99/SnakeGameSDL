@@ -5,7 +5,7 @@ and may not be redistributed without written permission.*/
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_image.h> //For loading images
 #include <SDL2/SDL_ttf.h>   //For loading/displaying text
-#include "SnakePiece.cpp"
+#include "GamePiece.cpp"
 #include "Snake.cpp"
 #include <stdio.h>
 #include <string>
@@ -33,22 +33,22 @@ bool loadMedia();
 void close();
 
 //Loads individual image
-SDL_Surface *loadSurface(std::string path);
+SDL_Surface* loadSurface(std::string path);
 
 //The window we'll be rendering to
-SDL_Window *gWindow = NULL;
+SDL_Window* gWindow = NULL;
 
 //The surface contained by the window
-SDL_Surface *gScreenSurface = NULL;
+SDL_Surface* gScreenSurface = NULL;
 
 //Font used to display text
-TTF_Font *font = NULL;
+TTF_Font* font = NULL;
 
 //Defining some colors
-SDL_Color White = {255, 255, 255};
-SDL_Color Red = {255, 0, 0};
-SDL_Color Green = {0, 255, 0};
-SDL_Color Blue = {0, 0, 255};
+SDL_Color White = { 255, 255, 255 };
+SDL_Color Red = { 255, 0, 0 };
+SDL_Color Green = { 0, 255, 0 };
+SDL_Color Blue = { 0, 0, 255 };
 
 /*
 +----------+-----------+-----------+
@@ -137,13 +137,13 @@ void close()
     SDL_Quit();
 }
 
-SDL_Surface *loadSurface(std::string path)
+SDL_Surface* loadSurface(std::string path)
 {
     //The final optimized image
-    SDL_Surface *optimizedSurface = NULL;
+    SDL_Surface* optimizedSurface = NULL;
 
     //Load image at specified path
-    SDL_Surface *loadedSurface = IMG_Load(path.c_str());
+    SDL_Surface* loadedSurface = IMG_Load(path.c_str());
     if (loadedSurface == NULL)
     {
         printf("Unable to load image %s! SDL_image Error: %s\n", path.c_str(), IMG_GetError());
@@ -164,7 +164,7 @@ SDL_Surface *loadSurface(std::string path)
     return optimizedSurface;
 }
 
-int main(int argc, char *args[])
+int main(int argc, char* args[])
 {
     //Start up SDL and create window
     if (!init())

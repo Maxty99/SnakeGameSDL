@@ -1,13 +1,15 @@
 #include "Snake/Snake.h"
 #include <SDL2/SDL.h>
 
-Snake::Snake(const int &screen_width, const int &screen_height, const int &cell_width, const int &cell_height)
-{
-    // addBodyPart();
+Snake::Snake(const int& screen_width, const int& screen_height, const int& cell_width, const int& cell_height) {
     SCREEN_WIDTH = screen_width;
     SCREEN_HEIGHT = screen_height;
     CELL_WIDTH = cell_width;
     CELL_HEIGHT = cell_height;
+    GamePiece head(28, 28);
+    head.setPos(CELL_WIDTH / 2, CELL_HEIGHT / 2);
+    bodyParts.push_back(head);
+
 }
 
 /**
@@ -20,12 +22,12 @@ void Snake::addBodyPart()
     int x, y;
     Direction facing;
 
-    int *pos = bodyParts.back().getPos();
+    int* pos = bodyParts.back().getPos();
     x = *pos;
     y = *(pos + 1);
     facing = bodyParts.back().getFacing();
 
-    SnakePiece newPiece(28, 28);
+    GamePiece newPiece(28, 28);
     switch (facing)
     {
     case left:
@@ -55,7 +57,7 @@ void Snake::addBodyPart()
 * @param surface Is the surface to be drawn on
 */
 
-void Snake::draw(SDL_Surface *surface)
+void Snake::draw(SDL_Surface* surface)
 {
     for (int i = 0; i < bodyParts.size(); i++)
     {
@@ -79,7 +81,7 @@ bool Snake::move()
 
     // First do for head
 
-    int *pos = bodyParts.at(0).getPos();
+    int* pos = bodyParts.at(0).getPos();
     int headX = *pos;
     int headY = *(pos + 1);
     Direction headFacing = bodyParts.at(0).getFacing();
@@ -128,7 +130,7 @@ bool Snake::move()
         for (int i = 1; i < bodyParts.size(); i++)
         {
             //Temp variables
-            int *pos = bodyParts.at(i).getPos();
+            int* pos = bodyParts.at(i).getPos();
             int x = *pos;
             int y = *(pos + 1);
 
@@ -178,12 +180,12 @@ Direction Snake::getHeadDirection()
 
 int Snake::getHeadX()
 {
-    int *pos = bodyParts.at(0).getPos();
+    int* pos = bodyParts.at(0).getPos();
     return *pos;
 }
 
 int Snake::getHeadY()
 {
-    int *pos = bodyParts.at(0).getPos();
+    int* pos = bodyParts.at(0).getPos();
     return *(pos + 1);
 }

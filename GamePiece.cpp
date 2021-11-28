@@ -1,5 +1,5 @@
 #include <SDL2/SDL.h>
-#include "Snake/SnakePiece.h"
+#include "Snake/GamePiece.h"
 
 /**
 * @brief Set the position of the Snake Piece object
@@ -8,12 +8,13 @@
 * @param y
 */
 
-SnakePiece::SnakePiece(int width, int height) {
+GamePiece::GamePiece(int width, int height) {
     snakeblockWidth = width;
     snakeblockHeight = height;
+
 }
 
-void SnakePiece::setPos(int x, int y) {
+void GamePiece::setPos(int x, int y) {
     pos[0] = x;
     pos[1] = y;
 
@@ -25,7 +26,7 @@ void SnakePiece::setPos(int x, int y) {
 * @return The pointer to the pos array of the object
 */
 
-int* SnakePiece::getPos() {
+int* GamePiece::getPos() {
     return pos;
 }
 
@@ -35,7 +36,7 @@ int* SnakePiece::getPos() {
 * @param newDirection
 */
 
-void SnakePiece::setFacing(Direction newDirection) {
+void GamePiece::setFacing(Direction newDirection) {
     facing = newDirection;
 }
 
@@ -45,7 +46,7 @@ void SnakePiece::setFacing(Direction newDirection) {
 * @return The direction Snake Piece is facing
 */
 
-Direction SnakePiece::getFacing() {
+Direction GamePiece::getFacing() {
     return facing;
 }
 
@@ -55,7 +56,7 @@ Direction SnakePiece::getFacing() {
 * @param surface is the SDL_Surface that will be drawn on
 */
 
-void SnakePiece::draw(SDL_Surface* surface) {
+void GamePiece::draw(SDL_Surface* surface) {
     SDL_Rect r = { pos[0] - (snakeblockWidth / 2),
                    pos[1] - (snakeblockHeight / 2),
                    snakeblockWidth,
