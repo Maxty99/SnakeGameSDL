@@ -1,5 +1,7 @@
 #include "Snake/Snake.h"
 #include <SDL2/SDL.h>
+#include <random>
+#include <time.h>
 
 Snake::Snake(const int& screen_width, const int& screen_height, const int& cell_width, const int& cell_height) {
     SCREEN_WIDTH = screen_width;
@@ -12,10 +14,6 @@ Snake::Snake(const int& screen_width, const int& screen_height, const int& cell_
 
 }
 
-/**
-* @brief Adds a new bodypart to the end of the Snake
-*
-*/
 
 void Snake::addBodyPart()
 {
@@ -51,12 +49,6 @@ void Snake::addBodyPart()
     bodyParts.push_back(newPiece);
 }
 
-/**
-* @brief Calls draw function on each member of the Snake
-*
-* @param surface Is the surface to be drawn on
-*/
-
 void Snake::draw(SDL_Surface* surface)
 {
     for (int i = 0; i < bodyParts.size(); i++)
@@ -65,12 +57,6 @@ void Snake::draw(SDL_Surface* surface)
     }
 }
 
-/**
-* @brief Move the snake forward
-*
-* @returns true if the snake hit a wall or itself
-* @returns false if the snake didnt hit anything
-*/
 
 bool Snake::move()
 {
@@ -156,22 +142,11 @@ bool Snake::move()
     return headBonked;
 }
 
-/**
-* @brief Set the Head Direction
-*
-* @param newDirection
-*/
 
 void Snake::setHeadDirection(Direction newDirection)
 {
     bodyParts.at(0).setFacing(newDirection);
 }
-
-/**
-* @brief Get the Head Direction
-*
-* @return Direction
-*/
 
 Direction Snake::getHeadDirection()
 {
@@ -188,4 +163,35 @@ int Snake::getHeadY()
 {
     int* pos = bodyParts.at(0).getPos();
     return *(pos + 1);
+}
+
+void Snake::placeApple() {
+    // Coords to move fruit to 
+    int x, y;
+    //Brute force random algo
+    bool placed = false;
+    while (!placed) {
+        placed = true;
+        //Potential coords
+        std::srand(time(0));
+
+        int maxX = SCREEN_WIDTH / CELL_WIDTH;
+        x = std::rand() % maxX;
+
+        int maxY = SCREEN_HEIGHT / CELL_HEIGHT;
+        y = std::rand() % maxY;
+
+        //Check if on snake
+        for (int i = 0; i < bodyParts.size(); i++)
+        {
+            int* pos = bodyParts.at(0).getPos();
+            int bodyX = *pos;
+            int bodyY = *(pos + 1);
+            // If its already false might as well skip, squeeze out extra clock cycles from this nightmarish algo
+            if (placed && bodyX == x && bodyY == y) {
+                placed = false;
+            }
+        }
+    }
+    fruit.setPos(x, y);
 }

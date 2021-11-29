@@ -65,7 +65,20 @@ public:
      */
     Direction getHeadDirection();
 
+    /**
+     * @brief Get the Head X
+     */
     int getHeadX();
+
+    /**
+     * @brief Get the Head Y
+     */
     int getHeadY();
+
+    /**
+     * @brief Places an apple in a valid square in the game
+     *
+     */
+    void placeApple();
 };
 #endif
