@@ -15,7 +15,7 @@ enum Direction { left, right, up, down };
  * @brief The main Snake game class, contains all the logic for the game
  *
  */
-class Snake
+class SnakeGame
 {
 private:
 
@@ -32,7 +32,7 @@ private:
 
 public:
 
-    Snake(const int& screenWidth, const int& screenHeight, const int& cellWidth, const int& cellHeight, const int& snakeBlockWidth, const int& snakeBlockHeight);
+    SnakeGame(const int& screenWidth, const int& screenHeight, const int& cellWidth, const int& cellHeight, const int& snakeBlockWidth, const int& snakeBlockHeight);
 
     /**
      * @brief Adds a new bodypart to the end of the Snake

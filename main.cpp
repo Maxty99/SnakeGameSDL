@@ -184,7 +184,7 @@ int main(int argc, char* args[])
             //Event handler
             SDL_Event e;
 
-            Snake snake(SCREEN_WIDTH, SCREEN_HEIGHT, CELL_WIDTH, CELL_HEIGHT, SNAKE_BLOCK_WIDTH, SNAKE_BLOCK_HEIGHT);
+            SnakeGame snake(SCREEN_WIDTH, SCREEN_HEIGHT, CELL_WIDTH, CELL_HEIGHT, SNAKE_BLOCK_WIDTH, SNAKE_BLOCK_HEIGHT);
             snake.placeFruit();
             // printf("%d, %d", snake.getHeadX(), snake.getHeadY());
             bool directionSet;

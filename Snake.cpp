@@ -3,7 +3,7 @@
 #include <random>
 #include <time.h>
 
-Snake::Snake(const int& screenWidth, const int& screenHeight, const int& cellWidth, const int& cellHeight, const int& snakeBlockWidth, const int& snakeBlockHeight) {
+SnakeGame::SnakeGame(const int& screenWidth, const int& screenHeight, const int& cellWidth, const int& cellHeight, const int& snakeBlockWidth, const int& snakeBlockHeight) {
     SCREEN_WIDTH = screenWidth;
     SCREEN_HEIGHT = screenHeight;
     CELL_WIDTH = cellWidth;
@@ -17,7 +17,7 @@ Snake::Snake(const int& screenWidth, const int& screenHeight, const int& cellWid
 }
 
 
-void Snake::addBodyPart()
+void SnakeGame::addBodyPart()
 {
     int x, y;
     Direction facing;
@@ -51,7 +51,7 @@ void Snake::addBodyPart()
     bodyParts.push_back(newPiece);
 }
 
-void Snake::draw(SDL_Surface* surface)
+void SnakeGame::draw(SDL_Surface* surface)
 {
     for (int i = 0; i < bodyParts.size(); i++)
     {
@@ -61,7 +61,7 @@ void Snake::draw(SDL_Surface* surface)
 }
 
 
-bool Snake::move()
+bool SnakeGame::move()
 {
     //Keep track of head being bonked or not
     bool headBonked = false;
@@ -159,29 +159,29 @@ bool Snake::move()
 }
 
 
-void Snake::setHeadDirection(Direction newDirection)
+void SnakeGame::setHeadDirection(Direction newDirection)
 {
     bodyParts.at(0).setFacing(newDirection);
 }
 
-Direction Snake::getHeadDirection()
+Direction SnakeGame::getHeadDirection()
 {
     return bodyParts.at(0).getFacing();
 }
 
-int Snake::getHeadX()
+int SnakeGame::getHeadX()
 {
     int* pos = bodyParts.at(0).getPos();
     return *pos;
 }
 
-int Snake::getHeadY()
+int SnakeGame::getHeadY()
 {
     int* pos = bodyParts.at(0).getPos();
     return *(pos + 1);
 }
 
-void Snake::placeFruit() {
+void SnakeGame::placeFruit() {
     int maxX = SCREEN_WIDTH / CELL_WIDTH;
     int maxY = SCREEN_HEIGHT / CELL_HEIGHT;
 
