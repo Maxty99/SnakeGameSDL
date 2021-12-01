@@ -105,7 +105,7 @@ bool loadMedia()
     bool success = true;
 
     //Load font
-    font = TTF_OpenFont("FreeSans.ttf", 24);
+    font = TTF_OpenFont("SourceSans3-Regular.ttf", 24);
     if (font == NULL)
     {
         printf("Failed to load PNG image!\n");
