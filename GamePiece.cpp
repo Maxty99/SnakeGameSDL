@@ -8,9 +8,10 @@
 * @param y
 */
 
-GamePiece::GamePiece(int width, int height) {
+GamePiece::GamePiece(int width, int height, SDL_Color color) {
     snakeblockWidth = width;
     snakeblockHeight = height;
+    pieceColor = color;
 
 }
 
@@ -62,5 +63,5 @@ void GamePiece::draw(SDL_Surface* surface) {
                    snakeblockWidth,
                    snakeblockHeight };
 
-    SDL_FillRect(surface, &r, 0xFFFFFF);
+    SDL_FillRect(surface, &r, SDL_MapRGB(surface->format, pieceColor.r, pieceColor.g, pieceColor.b));
 }

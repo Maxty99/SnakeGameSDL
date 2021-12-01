@@ -20,7 +20,7 @@ class Snake
 private:
 
     std::vector<GamePiece> bodyParts;
-    GamePiece fruit = GamePiece(28, 28);
+    GamePiece fruit = GamePiece(28, 28, { 255, 0, 0 });
     int SCREEN_WIDTH;
     int SCREEN_HEIGHT;
     int CELL_WIDTH;

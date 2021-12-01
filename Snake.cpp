@@ -8,7 +8,7 @@ Snake::Snake(const int& screen_width, const int& screen_height, const int& cell_
     SCREEN_HEIGHT = screen_height;
     CELL_WIDTH = cell_width;
     CELL_HEIGHT = cell_height;
-    GamePiece head(28, 28);
+    GamePiece head(28, 28, { 255, 255, 255 });
     head.setPos(CELL_WIDTH / 2, CELL_HEIGHT / 2);
     bodyParts.push_back(head);
 
@@ -25,7 +25,7 @@ void Snake::addBodyPart()
     y = *(pos + 1);
     facing = bodyParts.back().getFacing();
 
-    GamePiece newPiece(28, 28);
+    GamePiece newPiece(28, 28, { 255, 255, 255 });
     switch (facing)
     {
     case left:

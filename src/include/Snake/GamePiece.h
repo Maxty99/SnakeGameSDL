@@ -14,10 +14,11 @@ private:
     int snakeblockWidth;
     int snakeblockHeight;
     int pos[2] = { 0 }; // Init array to avoid undefined behavior
+    SDL_Color pieceColor;
 
 public:
 
-    GamePiece(int width, int height);
+    GamePiece(int width, int height, SDL_Color color);
 
     /**
      * @brief Set the position of the Snake Piece object
