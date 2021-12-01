@@ -25,6 +25,8 @@ private:
     int SCREEN_HEIGHT;
     int CELL_WIDTH;
     int CELL_HEIGHT;
+    int score = 0;
+    bool won = false;
 
 public:
 
@@ -44,7 +46,7 @@ public:
     void draw(SDL_Surface* surface);
 
     /**
-     * @brief Move the snake forward
+     * @brief Move the snake forward and check collision
      *
      * @returns true if the snake hit a wall or itself
      * @returns false if the snake didnt hit anything

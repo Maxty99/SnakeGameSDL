@@ -66,7 +66,7 @@ bool Snake::move()
 
     // (I admit this looks a little stupid but it lets me do bonk-checking in the for loop)
 
-    // First do for head
+    // First move head
 
     int* pos = bodyParts.at(0).getPos();
     int headX = *pos;
@@ -95,10 +95,23 @@ bool Snake::move()
         break;
     }
 
+    //Check fruit collision
+    int* fruitPos = fruit.getPos();
+    int fruitX = *fruitPos;
+    int fruitY = *(fruitPos + 1);
+    printf("(%d,%d)", fruitX, fruitY);
+    if (newHeadX == fruitX && newHeadY == fruitY) {
+        placeFruit();
+        addBodyPart();
+        score++;
+    }
+
+    // Check wall collision
     if (newHeadX < 0 || newHeadY < 0 || newHeadX > SCREEN_WIDTH || newHeadY > SCREEN_HEIGHT)
     {
         headBonked = true;
     }
+
 
     bodyParts.at(0).setPos(newHeadX, newHeadY);
 
@@ -167,32 +180,39 @@ int Snake::getHeadY()
 }
 
 void Snake::placeFruit() {
-    // Coords to move fruit to 
-    int x, y;
-    //Brute force random algo
-    bool placed = false;
-    while (!placed) {
-        placed = true;
-        //Potential coords
-        std::srand(time(0));
+    int maxX = SCREEN_WIDTH / CELL_WIDTH;
+    int maxY = SCREEN_HEIGHT / CELL_HEIGHT;
 
-        int maxX = SCREEN_WIDTH / CELL_WIDTH;
-        x = std::rand() % maxX;
+    if (score < maxX * maxY - 1)
+    {
+        // Coords to move fruit to 
+        int x, y;
+        //Brute force random algo
+        bool placed = false;
+        while (!placed) {
+            placed = true;
+            //Potential coords
+            std::srand(time(0));
 
-        int maxY = SCREEN_HEIGHT / CELL_HEIGHT;
-        y = std::rand() % maxY;
 
-        //Check if on snake
-        for (int i = 0; i < bodyParts.size(); i++)
-        {
-            int* pos = bodyParts.at(0).getPos();
-            int bodyX = *pos;
-            int bodyY = *(pos + 1);
-            // If its already false might as well skip, squeeze out extra clock cycles from this nightmarish algo
-            if (placed && bodyX == x && bodyY == y) {
-                placed = false;
+            x = std::rand() % maxX;
+            y = std::rand() % maxY;
+
+            //Check if on snake
+            for (int i = 0; i < bodyParts.size(); i++)
+            {
+                int* pos = bodyParts.at(0).getPos();
+                int bodyX = *pos;
+                int bodyY = *(pos + 1);
+                // If its already false might as well skip, squeeze out extra clock cycles from this nightmarish algo
+                if (placed && bodyX == x && bodyY == y) {
+                    placed = false;
+                }
             }
         }
+        fruit.setPos(x * CELL_WIDTH + (CELL_WIDTH / 2), y * CELL_HEIGHT + (CELL_HEIGHT / 2));
     }
-    fruit.setPos(x * CELL_WIDTH + (CELL_WIDTH / 2), y * CELL_HEIGHT + (CELL_HEIGHT / 2));
+    else {
+        won = true;
+    }
 }
