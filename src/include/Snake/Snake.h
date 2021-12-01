@@ -76,9 +76,9 @@ public:
     int getHeadY();
 
     /**
-     * @brief Places an apple in a valid square in the game
+     * @brief Places an fruit in a valid square in the game
      *
      */
-    void placeApple();
+    void placeFruit();
 };
 #endif

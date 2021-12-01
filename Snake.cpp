@@ -165,7 +165,7 @@ int Snake::getHeadY()
     return *(pos + 1);
 }
 
-void Snake::placeApple() {
+void Snake::placeFruit() {
     // Coords to move fruit to 
     int x, y;
     //Brute force random algo
