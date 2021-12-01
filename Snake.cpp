@@ -185,6 +185,7 @@ void Snake::placeFruit() {
 
     if (score < maxX * maxY - 1)
     {
+        std::srand(time(0));
         // Coords to move fruit to 
         int x, y;
         //Brute force random algo
@@ -192,8 +193,6 @@ void Snake::placeFruit() {
         while (!placed) {
             placed = true;
             //Potential coords
-            std::srand(time(0));
-
 
             x = std::rand() % maxX;
             y = std::rand() % maxY;
@@ -201,7 +200,7 @@ void Snake::placeFruit() {
             //Check if on snake
             for (int i = 0; i < bodyParts.size(); i++)
             {
-                int* pos = bodyParts.at(0).getPos();
+                int* pos = bodyParts.at(i).getPos();
                 int bodyX = *pos;
                 int bodyY = *(pos + 1);
                 // If its already false might as well skip, squeeze out extra clock cycles from this nightmarish algo
