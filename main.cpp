@@ -17,8 +17,8 @@ const int SNAKE_BLOCK_WIDTH = 28;
 const int SNAKE_BLOCK_HEIGHT = 28;
 
 //Screen dimension constants
-const int SCREEN_WIDTH = 640;
-const int SCREEN_HEIGHT = 480;
+const int SCREEN_WIDTH = 300;
+const int SCREEN_HEIGHT = 300;
 
 //Starts up SDL and creates window
 bool init();
@@ -40,12 +40,6 @@ SDL_Surface* gScreenSurface = NULL;
 
 //Font used to display text
 TTF_Font* font = NULL;
-
-//Defining some colors
-SDL_Color White = { 255, 255, 255 };
-SDL_Color Red = { 255, 0, 0 };
-SDL_Color Green = { 0, 255, 0 };
-SDL_Color Blue = { 0, 0, 255 };
 
 /*
 +----------+-----------+-----------+
