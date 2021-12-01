@@ -55,6 +55,7 @@ void Snake::draw(SDL_Surface* surface)
     {
         bodyParts.at(i).draw(surface);
     }
+    fruit.draw(surface);
 }
 
 
@@ -193,5 +194,5 @@ void Snake::placeFruit() {
             }
         }
     }
-    fruit.setPos(x, y);
+    fruit.setPos(x * CELL_WIDTH + (CELL_WIDTH / 2), y * CELL_HEIGHT + (CELL_HEIGHT / 2));
 }

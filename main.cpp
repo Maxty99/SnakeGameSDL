@@ -189,6 +189,7 @@ int main(int argc, char* args[])
             snake.addBodyPart();
             snake.addBodyPart();
             snake.addBodyPart();
+            snake.placeFruit();
             // printf("%d, %d", snake.getHeadX(), snake.getHeadY());
             bool directionSet;
 
