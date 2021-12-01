@@ -25,12 +25,14 @@ private:
     int SCREEN_HEIGHT;
     int CELL_WIDTH;
     int CELL_HEIGHT;
+    int SNAKE_BLOCK_WIDTH;
+    int SNAKE_BLOCK_HEIGHT;
     int score = 0;
     bool won = false;
 
 public:
 
-    Snake(const int& screen_width, const int& screen_height, const int& cell_width, const int& cell_height);
+    Snake(const int& screenWidth, const int& screenHeight, const int& cellWidth, const int& cellHeight, const int& snakeBlockWidth, const int& snakeBlockHeight);
 
     /**
      * @brief Adds a new bodypart to the end of the Snake

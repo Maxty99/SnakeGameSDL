@@ -3,12 +3,14 @@
 #include <random>
 #include <time.h>
 
-Snake::Snake(const int& screen_width, const int& screen_height, const int& cell_width, const int& cell_height) {
-    SCREEN_WIDTH = screen_width;
-    SCREEN_HEIGHT = screen_height;
-    CELL_WIDTH = cell_width;
-    CELL_HEIGHT = cell_height;
-    GamePiece head(28, 28, { 255, 255, 255 });
+Snake::Snake(const int& screenWidth, const int& screenHeight, const int& cellWidth, const int& cellHeight, const int& snakeBlockWidth, const int& snakeBlockHeight) {
+    SCREEN_WIDTH = screenWidth;
+    SCREEN_HEIGHT = screenHeight;
+    CELL_WIDTH = cellWidth;
+    CELL_HEIGHT = cellHeight;
+    SNAKE_BLOCK_WIDTH = snakeBlockWidth;
+    SNAKE_BLOCK_HEIGHT = snakeBlockHeight;
+    GamePiece head(SNAKE_BLOCK_WIDTH, SNAKE_BLOCK_HEIGHT, { 255, 255, 255 });
     head.setPos(CELL_WIDTH / 2, CELL_HEIGHT / 2);
     bodyParts.push_back(head);
 
@@ -25,7 +27,7 @@ void Snake::addBodyPart()
     y = *(pos + 1);
     facing = bodyParts.back().getFacing();
 
-    GamePiece newPiece(28, 28, { 255, 255, 255 });
+    GamePiece newPiece(SNAKE_BLOCK_WIDTH, SNAKE_BLOCK_HEIGHT, { 255, 255, 255 });
     switch (facing)
     {
     case left:
@@ -99,7 +101,7 @@ bool Snake::move()
     int* fruitPos = fruit.getPos();
     int fruitX = *fruitPos;
     int fruitY = *(fruitPos + 1);
-    printf("(%d,%d)", fruitX, fruitY);
+
     if (newHeadX == fruitX && newHeadY == fruitY) {
         placeFruit();
         addBodyPart();
