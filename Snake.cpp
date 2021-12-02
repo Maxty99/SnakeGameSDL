@@ -102,11 +102,7 @@ bool SnakeGame::move()
     int fruitX = *fruitPos;
     int fruitY = *(fruitPos + 1);
 
-    if (newHeadX == fruitX && newHeadY == fruitY) {
-        placeFruit();
-        addBodyPart();
-        score++;
-    }
+
 
     // Check wall collision
     if (newHeadX < 0 || newHeadY < 0 || newHeadX > SCREEN_WIDTH || newHeadY > SCREEN_HEIGHT)
@@ -154,7 +150,11 @@ bool SnakeGame::move()
             prevY = y;
         }
     }
-
+    if (newHeadX == fruitX && newHeadY == fruitY) {
+        placeFruit();
+        addBodyPart();
+        score++;
+    }
     return headBonked;
 }
 
@@ -184,7 +184,7 @@ int SnakeGame::getHeadY()
 void SnakeGame::placeFruit() {
     int maxX = SCREEN_WIDTH / CELL_WIDTH;
     int maxY = SCREEN_HEIGHT / CELL_HEIGHT;
-
+    printf("MaxX: %d MaxY: %d \n", maxX, maxY);
     if (score < maxX * maxY - 1)
     {
         std::srand(time(0));
@@ -192,26 +192,32 @@ void SnakeGame::placeFruit() {
         int x, y;
         //Brute force random algo
         bool placed = false;
-        while (!placed) {
+        int fruitX, fruitY;
+        while (!placed)
+        {
             placed = true;
             //Potential coords
 
             x = std::rand() % maxX;
             y = std::rand() % maxY;
-
+            fruitX = x * CELL_WIDTH + (CELL_WIDTH / 2);
+            fruitY = y * CELL_HEIGHT + (CELL_HEIGHT / 2);
             //Check if on snake
             for (int i = 0; i < bodyParts.size(); i++)
             {
                 int* pos = bodyParts.at(i).getPos();
                 int bodyX = *pos;
                 int bodyY = *(pos + 1);
+                // printf("bodyX: %d BodyY: %d \n", bodyX, bodyY);
                 // If its already false might as well skip, squeeze out extra clock cycles from this nightmarish algo
-                if (placed && bodyX == x && bodyY == y) {
+                if (placed && bodyX == fruitX && bodyY == fruitY) {
                     placed = false;
                 }
             }
+            printf("%s", placed ? "true\n" : "false\n");
         }
-        fruit.setPos(x * CELL_WIDTH + (CELL_WIDTH / 2), y * CELL_HEIGHT + (CELL_HEIGHT / 2));
+        // printf("FruitX: %d FruitY: %d \n", x * CELL_WIDTH + (CELL_WIDTH / 2), y * CELL_HEIGHT + (CELL_HEIGHT / 2));
+        fruit.setPos(fruitX, fruitY);
     }
     else {
         won = true;
