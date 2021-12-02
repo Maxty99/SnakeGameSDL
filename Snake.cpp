@@ -184,7 +184,7 @@ int SnakeGame::getHeadY()
 void SnakeGame::placeFruit() {
     int maxX = SCREEN_WIDTH / CELL_WIDTH;
     int maxY = SCREEN_HEIGHT / CELL_HEIGHT;
-    printf("MaxX: %d MaxY: %d \n", maxX, maxY);
+
     if (score < maxX * maxY - 1)
     {
         std::srand(time(0));
@@ -208,15 +208,15 @@ void SnakeGame::placeFruit() {
                 int* pos = bodyParts.at(i).getPos();
                 int bodyX = *pos;
                 int bodyY = *(pos + 1);
-                // printf("bodyX: %d BodyY: %d \n", bodyX, bodyY);
+
                 // If its already false might as well skip, squeeze out extra clock cycles from this nightmarish algo
                 if (placed && bodyX == fruitX && bodyY == fruitY) {
                     placed = false;
                 }
             }
-            printf("%s", placed ? "true\n" : "false\n");
+
         }
-        // printf("FruitX: %d FruitY: %d \n", x * CELL_WIDTH + (CELL_WIDTH / 2), y * CELL_HEIGHT + (CELL_HEIGHT / 2));
+
         fruit.setPos(fruitX, fruitY);
     }
     else {

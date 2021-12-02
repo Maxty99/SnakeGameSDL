@@ -1,6 +1,5 @@
 //Using SDL, SDL_image, standard IO, and strings
 #include <SDL2/SDL.h>
-#include <SDL2/SDL_image.h> //For loading images
 #include <SDL2/SDL_ttf.h>   //For loading/displaying text
 #include "GamePiece.cpp"
 #include "Snake.cpp"
@@ -76,13 +75,7 @@ bool init()
         }
         else
         {
-            //Initialize PNG loading
-            int imgFlags = IMG_INIT_PNG;
-            if (!(IMG_Init(imgFlags) & imgFlags))
-            {
-                printf("SDL_image could not initialize! SDL_image Error: %s\n", IMG_GetError());
-                success = false;
-            }
+            //Initialize TTF loading
             if (TTF_Init() == -1)
             {
                 printf("TTF_Init could not initialize! TTF_Init Error: %s\n", TTF_GetError());
@@ -108,7 +101,7 @@ bool loadMedia()
     font = TTF_OpenFont("SourceSans3-Regular.ttf", 24);
     if (font == NULL)
     {
-        printf("Failed to load PNG image!\n");
+        printf("Failed to load font!\n");
         success = false;
     }
 
@@ -122,37 +115,8 @@ void close()
     SDL_DestroyWindow(gWindow);
     gWindow = NULL;
 
-    //Quit SDL subsystems
-    IMG_Quit();
     TTF_Quit();
     SDL_Quit();
-}
-
-SDL_Surface* loadSurface(std::string path)
-{
-    //The final optimized image
-    SDL_Surface* optimizedSurface = NULL;
-
-    //Load image at specified path
-    SDL_Surface* loadedSurface = IMG_Load(path.c_str());
-    if (loadedSurface == NULL)
-    {
-        printf("Unable to load image %s! SDL_image Error: %s\n", path.c_str(), IMG_GetError());
-    }
-    else
-    {
-        //Convert surface to screen format
-        optimizedSurface = SDL_ConvertSurface(loadedSurface, gScreenSurface->format, 0);
-        if (optimizedSurface == NULL)
-        {
-            printf("Unable to optimize image %s! SDL Error: %s\n", path.c_str(), SDL_GetError());
-        }
-
-        //Get rid of old loaded surface
-        SDL_FreeSurface(loadedSurface);
-    }
-
-    return optimizedSurface;
 }
 
 int main(int argc, char* args[])
@@ -180,7 +144,7 @@ int main(int argc, char* args[])
 
             SnakeGame snake(SCREEN_WIDTH, SCREEN_HEIGHT, CELL_WIDTH, CELL_HEIGHT, SNAKE_BLOCK_WIDTH, SNAKE_BLOCK_HEIGHT);
             snake.placeFruit();
-            // printf("%d, %d", snake.getHeadX(), snake.getHeadY());
+
             bool directionSet;
 
             Uint32 mTicksCount = 0;
@@ -255,7 +219,7 @@ int main(int argc, char* args[])
                     directionSet = false;
                     if (snake.move())
                     {
-                        // printf("%d, %d", snake.getHeadX(), snake.getHeadY());
+
                         quit = true;
                     }
                 }
